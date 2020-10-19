@@ -11,8 +11,10 @@ if($postjson['requisicao']=='add'){
     $query->bindValue(":serie",$postjson['serie']);
     $query->bindValue(":categoria",$postjson['categoria']);
     $query->bindValue(":situacao",$postjson['situacao']);
+ 
     $query->execute();
     $id  = $pdo->lastInsertId();
+
     if($query){
         $result = json_encode(array('success'=>true,'id'=>$id));
     }else{
@@ -20,13 +22,12 @@ if($postjson['requisicao']=='add'){
     }
     echo $result;
 //
-}//final da requisição ADD  - teste OK
-else if($postjson['requisicao']=='listar'){
-    if($postjson['numero'] == ''){                                                      
+}//final da requisição ADD
+
+elseif($postjson['requisicao']=='listar'){
+                                                   
         $query = $pdo->query("SELECT * FROM patrimonio order by numero asc");
-    }else{
-        $query = $pdo->query("SELECT * FROM patrimonio where numero = '$postjson[numero]' order by numero asc");
-    }
+  
     $res  = $query->fetchAll(PDO::FETCH_ASSOC);
     for ($i=0; $i < count($res); $i++) { 
             $dados[] = array(
@@ -39,16 +40,13 @@ else if($postjson['requisicao']=='listar'){
                 'categoria'=> $res[$i]['categoria'],
                 'situacao'=> $res[$i]['situacao']
             );
-        
     } 
-    if (count($res) > 0){
-        $result = json_encode(array('success'=>true, 'result'=>$dados));
-    }else{
-        $result = json_encode(array('success'=>false, 'result'=>'0'));
-    }
-    echo $result;
-
  
-
+    if (count($res) > 0){ 
+        $ret = array('success'=>true, 'ret'=>$dados);
+    }else{
+        $ret = array('success'=>false, 'ret'=>'0');
+    }
+    var_dump(json_encode($ret));
 }//final da requisição LISTAR
 ?>
