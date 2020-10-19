@@ -6,7 +6,8 @@ import 'rxjs/add/operator/map';
 })
 export class ApiService {
 server: string = "http://10.91.43.33/inventoryapp/";
-  constructor(private http:HttpClient) { }
+    
+constructor(private http:HttpClient) { }
 
   conectApi(dados:any, nomeApi:string){
     const httpOptions= {

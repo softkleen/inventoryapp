@@ -21,4 +21,34 @@ if($postjson['requisicao']=='add'){
     echo $result;
 //
 }//final da requisição ADD  - teste OK
+else if($postjson['requisicao']=='listar'){
+    if($postjson['numero'] == ''){                                                      
+        $query = $pdo->query("SELECT * FROM patrimonio order by numero asc");
+    }else{
+        $query = $pdo->query("SELECT * FROM patrimonio where numero = '$postjson[numero]' order by numero asc");
+    }
+    $res  = $query->fetchAll(PDO::FETCH_ASSOC);
+    for ($i=0; $i < count($res); $i++) { 
+            $dados[] = array(
+                'id'=> $res[$i]['id'],
+                'numero'=> $res[$i]['numero'],
+                'produto'=> $res[$i]['produto'],
+                'serie'=> $res[$i]['serie'],
+                'marca'=> $res[$i]['marca'],
+                'valor'=> $res[$i]['valor'],
+                'categoria'=> $res[$i]['categoria'],
+                'situacao'=> $res[$i]['situacao']
+            );
+        
+    } 
+    if (count($res) > 0){
+        $result = json_encode(array('success'=>true, 'result'=>$dados));
+    }else{
+        $result = json_encode(array('success'=>false, 'result'=>'0'));
+    }
+    echo $result;
+
+ 
+
+}//final da requisição LISTAR
 ?>

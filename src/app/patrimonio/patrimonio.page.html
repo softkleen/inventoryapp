@@ -13,7 +13,18 @@
 </ion-header> <!-- final do cabelaçalho -->
 
 <ion-content>
-
+<ion-grid>  
+  <ion-row >
+    <ion-col size="2" class="bgc">Nº</ion-col>
+    <ion-col size="6" class="bgc">Produto</ion-col>
+    <ion-col size="4" class="bgc">Valor </ion-col>
+  </ion-row>
+  <ion-row *ngFor="let item of patrimonio" >
+    <ion-col size="2" >{{item.numero}}</ion-col>
+    <ion-col size="6" >{{item.produto}}</ion-col>
+    <ion-col size="4" >{{item.valor}} </ion-col>
+  </ion-row>
+</ion-grid>
 </ion-content><!-- final do conteúdo -->
 
 <ion-footer>
